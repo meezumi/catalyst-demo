@@ -15,15 +15,15 @@ function App() {
 
     try {
       // Call the demo_function serverless function
-      const result = await fetch('/server/demo_function/execute', {
+      const url = formInput 
+        ? `/server/demo_function/execute?argument1=${encodeURIComponent(formInput)}`
+        : '/server/demo_function/execute';
+      
+      const result = await fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-        // Pass the form input as a query parameter
-        ...(formInput && { 
-          body: JSON.stringify({ argument1: formInput })
-        })
       });
 
       if (!result.ok) {
