@@ -1,0 +1,9 @@
+{
+	"name": "create_note",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "user1@demo1.itotcloud.in",
+	"dependencies": {
+		"zcatalyst-sdk-node": "latest"
+	}
+}

@@ -1,7 +1,11 @@
 {
   "functions": {
     "targets": [
-      "demo_function"
+      "demo_function",
+      "create_note",
+      "read_notes",
+      "update_note",
+      "delete_note"
     ],
     "ignore": [],
     "source": "functions"
@@ -11,3 +15,4 @@
     "plugin": "zcatalyst-cli-plugin-react"
   }
 }
+
