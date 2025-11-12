@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 .App-header {
@@ -8,24 +11,100 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: calc(10px + 2vmin);
   color: white;
-  padding: 20px;
+  padding-top: 40px;
 }
 
 .App-header h1 {
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   font-size: 2.5rem;
 }
 
-.form-container {
+.subtitle {
+  margin-bottom: 30px;
+  color: #61dafb;
+  font-size: 1rem;
+}
+
+.primary-button,
+.submit-button,
+.cancel-button,
+.edit-button,
+.delete-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+
+.primary-button {
+  background-color: #61dafb;
+  color: #282c34;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.primary-button:hover {
+  background-color: #41d4ff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.4);
+}
+
+.submit-button {
+  background-color: #4CAF50;
+  color: white;
+  width: 100%;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #da190b;
+}
+
+.edit-button {
+  background-color: #2196F3;
+  color: white;
+  font-size: 0.9rem;
+  padding: 8px 15px;
+}
+
+.edit-button:hover {
+  background-color: #0b7dda;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  font-size: 0.9rem;
+  padding: 8px 15px;
+}
+
+.delete-button:hover {
+  background-color: #da190b;
+}
+
+.note-form {
   background-color: #1e2227;
-  padding: 40px;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
+  margin-bottom: 30px;
 }
 
 .form-group {
@@ -38,6 +117,7 @@
   margin-bottom: 8px;
   font-weight: 500;
   font-size: 1rem;
+  color: #61dafb;
 }
 
 .form-input {
@@ -50,6 +130,7 @@
   color: white;
   box-sizing: border-box;
   transition: border-color 0.3s ease;
+  font-family: inherit;
 }
 
 .form-input:focus {
@@ -62,63 +143,102 @@
   color: #999;
 }
 
-.submit-button {
-  width: 100%;
-  padding: 12px 20px;
-  background-color: #61dafb;
-  color: #282c34;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
-.submit-button:hover:not(:disabled) {
-  background-color: #41d4ff;
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.4);
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.submit-button:disabled {
+.submit-button:disabled,
+.primary-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.response-box {
-  margin-top: 30px;
-  padding: 20px;
-  background-color: #1e2a2e;
-  border-left: 4px solid #61dafb;
-  border-radius: 5px;
-  text-align: left;
-  animation: slideIn 0.3s ease;
-}
-
-.response-box h3 {
-  margin: 0 0 10px 0;
-  color: #61dafb;
-}
-
-.response-box p {
-  margin: 0;
-  word-wrap: break-word;
-}
-
 .error-box {
-  margin-top: 30px;
-  padding: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
   background-color: #3d2a2a;
   border-left: 4px solid #ff6b6b;
   border-radius: 5px;
-  text-align: left;
+  max-width: 600px;
   animation: slideIn 0.3s ease;
 }
 
 .error-box p {
   margin: 0;
   color: #ff8787;
+}
+
+.notes-container {
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 30px;
+}
+
+.no-notes {
+  color: #aaa;
+  font-size: 1.1rem;
+  margin-top: 40px;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.note-card {
+  background-color: #1e2227;
+  border: 2px solid #3d4147;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: left;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.note-card:hover {
+  border-color: #61dafb;
+  box-shadow: 0 4px 12px rgba(97, 218, 251, 0.2);
+  transform: translateY(-5px);
+}
+
+.note-card h3 {
+  margin: 0 0 10px 0;
+  color: #61dafb;
+  word-break: break-word;
+}
+
+.note-card p {
+  margin: 0 0 15px 0;
+  color: #ccc;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.note-date {
+  display: block;
+  color: #999;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.note-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 @keyframes slideIn {
@@ -131,3 +251,22 @@
     transform: translateY(0);
   }
 }
+
+@media (max-width: 600px) {
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .App-header h1 {
+    font-size: 2rem;
+  }
+
+  .note-form {
+    padding: 20px;
+  }
+
+  .form-input {
+    font-size: 16px;
+  }
+}
+

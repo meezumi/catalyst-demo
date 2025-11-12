@@ -1,0 +1,11 @@
+{
+	"deployment": {
+		"name": "update_note",
+		"stack": "node14",
+		"type": "basicio",
+		"env_variables": {}
+	},
+	"execution": {
+		"main": "index.js"
+	}
+}
