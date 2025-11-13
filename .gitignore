@@ -13,6 +13,9 @@ yarn-error.log*
 .env.local
 .env.*.local
 
+# Firebase config (keep template, ignore actual config)
+firebase.config.js
+
 # OS files
 .DS_Store
 Thumbs.db

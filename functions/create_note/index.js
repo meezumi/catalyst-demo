@@ -1,4 +1,12 @@
-module.exports = (context, basicIO) => {
+const { initializeApp } = require('firebase/app');
+const { getDatabase, ref, push, set } = require('firebase/database');
+const firebaseConfig = require('./firebase.config');
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+module.exports = async (context, basicIO) => {
 	try {
 		// Get parameters from request
 		const title = basicIO.getArgument('title');
@@ -14,14 +22,21 @@ module.exports = (context, basicIO) => {
 			return;
 		}
 
-		// Create note object with unique ID (simple approach)
+		// Create note object
 		const newNote = {
-			id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
 			title: title,
 			content: content,
 			createdAt: new Date().toISOString(),
 			updatedAt: new Date().toISOString()
 		};
+
+		// Save to Firebase
+		const notesRef = ref(database, 'notes');
+		const newNoteRef = push(notesRef);
+		await set(newNoteRef, newNote);
+
+		// Add the Firebase-generated ID to the note
+		newNote.id = newNoteRef.key;
 
 		// Return success response
 		basicIO.write(JSON.stringify({

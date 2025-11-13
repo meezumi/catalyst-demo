@@ -1,4 +1,12 @@
-module.exports = (context, basicIO) => {
+const { initializeApp } = require('firebase/app');
+const { getDatabase, ref, update } = require('firebase/database');
+const firebaseConfig = require('./firebase.config');
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+module.exports = async (context, basicIO) => {
 	try {
 		// Get parameters from request
 		const id = basicIO.getArgument('id');
@@ -15,22 +23,27 @@ module.exports = (context, basicIO) => {
 			return;
 		}
 
-		// Create updated note object
-		const updatedNote = {
-			id: id,
+		// Update note in Firebase
+		const noteRef = ref(database, `notes/${id}`);
+		const updates = {
 			title: title,
 			content: content,
 			updatedAt: new Date().toISOString()
 		};
 
+		await update(noteRef, updates);
+
 		// Return success response
 		basicIO.write(JSON.stringify({
 			success: true,
 			message: 'Note updated successfully',
-			data: updatedNote
+			data: {
+				id: id,
+				...updates
+			}
 		}));
 
-		console.log('Note updated:', updatedNote);
+		console.log('Note updated:', id);
 
 	} catch (error) {
 		basicIO.write(JSON.stringify({

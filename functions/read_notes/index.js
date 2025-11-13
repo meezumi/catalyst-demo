@@ -1,14 +1,34 @@
-module.exports = (context, basicIO) => {
+const { initializeApp } = require('firebase/app');
+const { getDatabase, ref, get } = require('firebase/database');
+const firebaseConfig = require('./firebase.config');
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+module.exports = async (context, basicIO) => {
 	try {
-		// In a real app, this would fetch from a database
-		// For now, return a success message indicating this is a read endpoint
+		// Read all notes from Firebase
+		const notesRef = ref(database, 'notes');
+		const snapshot = await get(notesRef);
+
+		let notes = [];
+		if (snapshot.exists()) {
+			const notesData = snapshot.val();
+			// Convert Firebase object to array
+			notes = Object.keys(notesData).map(key => ({
+				id: key,
+				...notesData[key]
+			}));
+		}
+
 		basicIO.write(JSON.stringify({
 			success: true,
-			message: 'Read notes endpoint is ready',
-			data: []
+			message: 'Notes retrieved successfully',
+			data: notes
 		}));
 
-		console.log('Read notes function called');
+		console.log(`Retrieved ${notes.length} notes`);
 
 	} catch (error) {
 		basicIO.write(JSON.stringify({
