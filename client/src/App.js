@@ -19,7 +19,37 @@ function App() {
         console.error('Error loading notes from localStorage:', err);
       }
     }
+    
+    // Also fetch notes from Firebase on app load
+    fetchNotesFromFirebase();
   }, []);
+
+  // Fetch notes from Firebase
+  const fetchNotesFromFirebase = async () => {
+    try {
+      const response = await fetch('/server/read_notes/execute', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) throw new Error('Failed to fetch notes');
+      const responseData = await response.json();
+
+      // Handle Catalyst's output wrapper
+      let result;
+      if (responseData.output) {
+        result = JSON.parse(responseData.output);
+      } else {
+        result = responseData;
+      }
+
+      if (result.success && result.data) {
+        setNotes(result.data);
+      }
+    } catch (err) {
+      console.error('Error fetching notes from Firebase:', err);
+    }
+  };
 
   // Save notes to localStorage whenever they change
   useEffect(() => {
