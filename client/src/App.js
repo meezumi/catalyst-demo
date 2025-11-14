@@ -8,6 +8,8 @@ function App() {
   const [error, setError] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   // Load notes from localStorage on mount
   useEffect(() => {
@@ -48,6 +50,8 @@ function App() {
       }
     } catch (err) {
       console.error('Error fetching notes from Firebase:', err);
+    } finally {
+      setInitialLoading(false);
     }
   };
 
@@ -70,7 +74,7 @@ function App() {
       return;
     }
 
-    setLoading(true);
+    setSubmitLoading(true);
     setError('');
 
     try {
@@ -102,7 +106,7 @@ function App() {
       setError(`Error: ${err.message}`);
       console.error('Error:', err);
     } finally {
-      setLoading(false);
+      setSubmitLoading(false);
     }
   };
 
@@ -112,7 +116,7 @@ function App() {
       return;
     }
 
-    setLoading(true);
+    setSubmitLoading(true);
     setError('');
 
     try {
@@ -149,14 +153,14 @@ function App() {
       setError(`Error: ${err.message}`);
       console.error('Error:', err);
     } finally {
-      setLoading(false);
+      setSubmitLoading(false);
     }
   };
 
   const deleteNote = async (id) => {
     if (!window.confirm('Are you sure you want to delete this note?')) return;
 
-    setLoading(true);
+    setSubmitLoading(true);
     setError('');
 
     try {
@@ -186,7 +190,7 @@ function App() {
       setError(`Error: ${err.message}`);
       console.error('Error:', err);
     } finally {
-      setLoading(false);
+      setSubmitLoading(false);
     }
   };
 
@@ -216,7 +220,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>📝 Notes App</h1>
+        <h1>Catalyst Notes App</h1>
         <p className="subtitle">Built with Catalyst Serverless</p>
 
         {error && <div className="error-box"><p>❌ {error}</p></div>}
@@ -259,14 +263,22 @@ function App() {
             <div className="form-buttons">
               <button 
                 type="submit" 
-                disabled={loading}
+                disabled={submitLoading}
                 className="submit-button"
               >
-                {loading ? '⏳ Saving...' : (editingId ? '✏️ Update' : '💾 Save')}
+                {submitLoading ? (
+                  <>
+                    <span className="spinner"></span>
+                    Saving...
+                  </>
+                ) : (
+                  editingId ? '✏️ Update' : '💾 Save'
+                )}
               </button>
               <button 
                 type="button"
                 onClick={handleCancel}
+                disabled={submitLoading}
                 className="cancel-button"
               >
                 ✕ Cancel
@@ -276,7 +288,17 @@ function App() {
         )}
 
         <div className="notes-container">
-          {notes.length === 0 ? (
+          {initialLoading ? (
+            <div className="notes-grid">
+              {[1, 2, 3, 4].map(i => (
+                <div key={i} className="note-card skeleton-card" style={{ animation: 'pulse 1.5s infinite' }}>
+                  <div style={{ height: '24px', background: '#334155', borderRadius: '8px', marginBottom: '12px' }}></div>
+                  <div style={{ height: '60px', background: '#334155', borderRadius: '8px', marginBottom: '12px' }}></div>
+                  <div style={{ height: '16px', background: '#334155', borderRadius: '8px', width: '60%' }}></div>
+                </div>
+              ))}
+            </div>
+          ) : notes.length === 0 ? (
             <p className="no-notes">No notes yet. Create one to get started! 🚀</p>
           ) : (
             <div className="notes-grid">
@@ -291,12 +313,14 @@ function App() {
                     <button 
                       onClick={() => handleEdit(note)}
                       className="edit-button"
+                      disabled={submitLoading}
                     >
                       ✏️ Edit
                     </button>
                     <button 
                       onClick={() => deleteNote(note.id)}
                       className="delete-button"
+                      disabled={submitLoading}
                     >
                       🗑️ Delete
                     </button>
