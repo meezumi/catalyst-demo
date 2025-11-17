@@ -35,7 +35,133 @@
   letter-spacing: 0.5px;
 }
 
-/* ========== BUTTONS ========== */
+/* ========== AUTHENTICATION ========== */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.auth-form-wrapper {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 50px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 450px;
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  animation: slideDown 0.4s ease;
+}
+
+.auth-form-wrapper h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.auth-form-wrapper .subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-form {
+  text-align: left;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+}
+
+.auth-form h2 {
+  font-size: 1.5rem;
+  color: #f1f5f9;
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.auth-form .form-group {
+  margin-bottom: 20px;
+}
+
+.auth-form .form-input {
+  width: 100%;
+}
+
+.auth-form .primary-button {
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 24px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #60a5fa;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0;
+  text-decoration: underline;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.link-button:hover {
+  color: #a78bfa;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
+.logout-button:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* ========== BUTTONS (continued) ========== */
 .primary-button {
   padding: 14px 32px;
   background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
@@ -414,6 +540,24 @@
   .primary-button {
     width: 100%;
   }
+
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-info {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .auth-form-wrapper {
+    padding: 40px 24px;
+  }
+
+  .auth-form-wrapper h1 {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -433,6 +577,29 @@
   .delete-button {
     font-size: 0.8rem;
     padding: 8px 12px;
+  }
+
+  .auth-form-wrapper {
+    padding: 32px 16px;
+    margin: 0 auto;
+  }
+
+  .auth-form-wrapper h1 {
+    font-size: 1.5rem;
+  }
+
+  .auth-form h2 {
+    font-size: 1.2rem;
+  }
+
+  .user-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .logout-button {
+    width: 100%;
   }
 }
 

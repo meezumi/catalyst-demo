@@ -1,10 +1,10 @@
 {
-	"name": "delete_note",
+	"name": "verify_token",
 	"version": "1.0.0",
 	"main": "index.js",
 	"author": "user1@demo1.itotcloud.in",
 	"dependencies": {
-		"firebase-admin": "^12.0.0",
-		"zcatalyst-sdk-node": "latest"
+		"zcatalyst-sdk-node": "latest",
+		"jsonwebtoken": "^9.0.0"
 	}
 }
