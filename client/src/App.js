@@ -25,12 +25,16 @@ function App() {
 
   // Check for existing auth token on mount
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    const userData = localStorage.getItem('user');
-    if (token && userData) {
-      setIsAuthenticated(true);
-      setUser(JSON.parse(userData));
-      fetchNotesFromFirebase();
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const token = localStorage.getItem('authToken');
+      const userData = localStorage.getItem('user');
+      if (token && userData) {
+        setIsAuthenticated(true);
+        setUser(JSON.parse(userData));
+        fetchNotesFromFirebase();
+      } else {
+        setInitialLoading(false);
+      }
     } else {
       setInitialLoading(false);
     }
@@ -40,12 +44,14 @@ function App() {
   useEffect(() => {
     if (!isAuthenticated) return;
     
-    const savedNotes = localStorage.getItem('notes');
-    if (savedNotes) {
-      try {
-        setNotes(JSON.parse(savedNotes));
-      } catch (err) {
-        console.error('Error loading notes from localStorage:', err);
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const savedNotes = localStorage.getItem('notes');
+      if (savedNotes) {
+        try {
+          setNotes(JSON.parse(savedNotes));
+        } catch (err) {
+          console.error('Error loading notes from localStorage:', err);
+        }
       }
     }
     
@@ -90,12 +96,14 @@ function App() {
       }
 
       if (result.success) {
-        localStorage.setItem('authToken', result.data.token);
-        localStorage.setItem('user', JSON.stringify({
-          userId: result.data.userId,
-          username: result.data.username,
-          email: result.data.email
-        }));
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localStorage.setItem('authToken', result.data.token);
+          localStorage.setItem('user', JSON.stringify({
+            userId: result.data.userId,
+            username: result.data.username,
+            email: result.data.email
+          }));
+        }
         setUser(result.data);
         setIsAuthenticated(true);
         setAuthFormData({ email: '', password: '', username: '' });
@@ -137,12 +145,14 @@ function App() {
       }
 
       if (result.success) {
-        localStorage.setItem('authToken', result.data.token);
-        localStorage.setItem('user', JSON.stringify({
-          userId: result.data.userId,
-          username: result.data.username,
-          email: result.data.email
-        }));
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localStorage.setItem('authToken', result.data.token);
+          localStorage.setItem('user', JSON.stringify({
+            userId: result.data.userId,
+            username: result.data.username,
+            email: result.data.email
+          }));
+        }
         setUser(result.data);
         setIsAuthenticated(true);
         setAuthFormData({ email: '', password: '', username: '' });
@@ -203,7 +213,9 @@ function App() {
 
   // Save notes to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('notes', JSON.stringify(notes));
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('notes', JSON.stringify(notes));
+    }
   }, [notes]);
 
   const handleInputChange = (e) => {

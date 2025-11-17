@@ -1,75 +1,82 @@
-const admin = require('firebase-admin');
+const https = require('https');
 
-// Firebase configuration
-const firebaseConfig = {
-  databaseURL: 'https://catalyst-notes-app-default-rtdb.firebaseio.com'
-};
+function firebaseRequest(path, method, data) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'catalyst-notes-app-default-rtdb.firebaseio.com',
+      path: `${path}.json`,
+      method: method,
+      headers: { 'Content-Type': 'application/json' },
+      timeout: 10000
+    };
 
-// Initialize Firebase Admin
-if (!admin.apps.length) {
-  admin.initializeApp({
-    databaseURL: firebaseConfig.databaseURL
+    const req = https.request(options, (res) => {
+      let resData = '';
+      res.on('data', chunk => resData += chunk);
+      res.on('end', () => {
+        try {
+          resolve({ status: res.statusCode, data: JSON.parse(resData || '{}') });
+        } catch (e) {
+          resolve({ status: res.statusCode, data: resData });
+        }
+      });
+    });
+
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.abort();
+      reject(new Error('Request timeout'));
+    });
+
+    if (data) req.write(JSON.stringify(data));
+    req.end();
   });
 }
 
-const db = admin.database();
-
 module.exports = (context, basicIO) => {
-  createNote(basicIO).catch(err => {
-    basicIO.write(JSON.stringify({
-      success: false,
-      message: `Error: ${err.message}`
-    }));
-    console.error('Function error:', err);
-    context.close();
-  });
+  createNote(context, basicIO);
 };
 
-async function createNote(basicIO) {
+async function createNote(context, basicIO) {
   try {
-    // Get parameters from request
     const title = basicIO.getArgument('title');
     const content = basicIO.getArgument('content');
 
-    // Validate input
     if (!title || !content) {
       basicIO.write(JSON.stringify({
         success: false,
         message: 'Title and content are required'
       }));
+      context.close();
       return;
     }
 
-    // Create note object
+    const noteId = Date.now().toString(36) + Math.random().toString(36).substr(2);
     const newNote = {
+      id: noteId,
       title: title,
       content: content,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
 
-    // Save to Firebase
-    const notesRef = db.ref('notes');
-    const newNoteRef = notesRef.push();
-    await newNoteRef.set(newNote);
+    try {
+      await firebaseRequest(`/notes/${noteId}`, 'PUT', newNote);
+    } catch (err) {
+      console.error('Firebase save error:', err.message);
+    }
 
-    // Add the Firebase-generated ID to the note
-    newNote.id = newNoteRef.key;
-
-    // Return success response
     basicIO.write(JSON.stringify({
       success: true,
       message: 'Note created successfully',
       data: newNote
     }));
 
-    console.log('Note created:', newNote);
-
   } catch (error) {
     basicIO.write(JSON.stringify({
       success: false,
       message: `Error: ${error.message}`
     }));
-    console.error('Function error:', error);
   }
+  context.close();
 }

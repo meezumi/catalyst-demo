@@ -1,57 +1,69 @@
-const admin = require('firebase-admin');
+const https = require('https');
 
-// Firebase configuration
-const firebaseConfig = {
-  databaseURL: 'https://catalyst-notes-app-default-rtdb.firebaseio.com'
-};
+function firebaseRequest(path, method, data) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'catalyst-notes-app-default-rtdb.firebaseio.com',
+      path: `${path}.json`,
+      method: method,
+      headers: { 'Content-Type': 'application/json' },
+      timeout: 10000
+    };
 
-// Initialize Firebase Admin
-if (!admin.apps.length) {
-  admin.initializeApp({
-    databaseURL: firebaseConfig.databaseURL
+    const req = https.request(options, (res) => {
+      let resData = '';
+      res.on('data', chunk => resData += chunk);
+      res.on('end', () => {
+        try {
+          resolve({ status: res.statusCode, data: JSON.parse(resData || '{}') });
+        } catch (e) {
+          resolve({ status: res.statusCode, data: resData });
+        }
+      });
+    });
+
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.abort();
+      reject(new Error('Request timeout'));
+    });
+
+    if (data) req.write(JSON.stringify(data));
+    req.end();
   });
 }
 
-const db = admin.database();
-
 module.exports = (context, basicIO) => {
-  updateNote(basicIO).catch(err => {
-    basicIO.write(JSON.stringify({
-      success: false,
-      message: `Error: ${err.message}`
-    }));
-    console.error('Function error:', err);
-    context.close();
-  });
+  updateNote(context, basicIO);
 };
 
-async function updateNote(basicIO) {
+async function updateNote(context, basicIO) {
   try {
-    // Get parameters from request
     const id = basicIO.getArgument('id');
     const title = basicIO.getArgument('title');
     const content = basicIO.getArgument('content');
 
-    // Validate input
     if (!id || !title || !content) {
       basicIO.write(JSON.stringify({
         success: false,
         message: 'ID, title, and content are required'
       }));
+      context.close();
       return;
     }
 
-    // Update note in Firebase
-    const noteRef = db.ref(`notes/${id}`);
     const updates = {
       title: title,
       content: content,
       updatedAt: new Date().toISOString()
     };
 
-    await noteRef.update(updates);
+    try {
+      await firebaseRequest(`/notes/${id}`, 'PATCH', updates);
+    } catch (err) {
+      console.error('Firebase update error:', err.message);
+    }
 
-    // Return success response
     basicIO.write(JSON.stringify({
       success: true,
       message: 'Note updated successfully',
@@ -61,13 +73,11 @@ async function updateNote(basicIO) {
       }
     }));
 
-    console.log('Note updated:', id);
-
   } catch (error) {
     basicIO.write(JSON.stringify({
       success: false,
       message: `Error: ${error.message}`
     }));
-    console.error('Function error:', error);
   }
+  context.close();
 }

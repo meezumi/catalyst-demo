@@ -1,62 +1,69 @@
-const admin = require('firebase-admin');
+const https = require('https');
 
-// Firebase configuration
-const firebaseConfig = {
-  databaseURL: 'https://catalyst-notes-app-default-rtdb.firebaseio.com'
-};
+function firebaseRequest(path, method) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'catalyst-notes-app-default-rtdb.firebaseio.com',
+      path: `${path}.json`,
+      method: method,
+      timeout: 10000
+    };
 
-// Initialize Firebase Admin
-if (!admin.apps.length) {
-  admin.initializeApp({
-    databaseURL: firebaseConfig.databaseURL
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        try {
+          resolve({ status: res.statusCode, data: JSON.parse(data || '{}') });
+        } catch (e) {
+          resolve({ status: res.statusCode, data });
+        }
+      });
+    });
+
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.abort();
+      reject(new Error('Request timeout'));
+    });
+    req.end();
   });
 }
 
-const db = admin.database();
-
 module.exports = (context, basicIO) => {
-  deleteNote(basicIO).catch(err => {
-    basicIO.write(JSON.stringify({
-      success: false,
-      message: `Error: ${err.message}`
-    }));
-    console.error('Function error:', err);
-    context.close();
-  });
+  deleteNote(context, basicIO);
 };
 
-async function deleteNote(basicIO) {
+async function deleteNote(context, basicIO) {
   try {
-    // Get parameters from request
     const id = basicIO.getArgument('id');
 
-    // Validate input
     if (!id) {
       basicIO.write(JSON.stringify({
         success: false,
         message: 'ID is required'
       }));
+      context.close();
       return;
     }
 
-    // Delete note from Firebase
-    const noteRef = db.ref(`notes/${id}`);
-    await noteRef.remove();
+    try {
+      await firebaseRequest(`/notes/${id}`, 'DELETE');
+    } catch (err) {
+      console.error('Firebase delete error:', err.message);
+    }
 
-    // Return success response
     basicIO.write(JSON.stringify({
       success: true,
       message: 'Note deleted successfully',
       data: { id: id }
     }));
 
-    console.log('Note deleted with ID:', id);
-
   } catch (error) {
     basicIO.write(JSON.stringify({
       success: false,
       message: `Error: ${error.message}`
     }));
-    console.error('Function error:', error);
   }
+  context.close();
 }

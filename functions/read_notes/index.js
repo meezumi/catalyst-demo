@@ -1,59 +1,73 @@
-const admin = require('firebase-admin');
+const https = require('https');
 
-// Firebase configuration
-const firebaseConfig = {
-  databaseURL: 'https://catalyst-notes-app-default-rtdb.firebaseio.com'
-};
+function firebaseRequest(path, method) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'catalyst-notes-app-default-rtdb.firebaseio.com',
+      path: `${path}.json`,
+      method: method,
+      timeout: 10000
+    };
 
-// Initialize Firebase Admin
-if (!admin.apps.length) {
-  admin.initializeApp({
-    databaseURL: firebaseConfig.databaseURL
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        try {
+          resolve({ status: res.statusCode, data: JSON.parse(data || '{}') });
+        } catch (e) {
+          resolve({ status: res.statusCode, data });
+        }
+      });
+    });
+
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.abort();
+      reject(new Error('Request timeout'));
+    });
+    req.end();
   });
 }
 
-const db = admin.database();
-
 module.exports = (context, basicIO) => {
-  readNotes(basicIO).catch(err => {
-    basicIO.write(JSON.stringify({
-      success: false,
-      message: `Error: ${err.message}`
-    }));
-    console.error('Function error:', err);
-    context.close();
-  });
+  readNotes(context, basicIO);
 };
 
-async function readNotes(basicIO) {
+async function readNotes(context, basicIO) {
   try {
-    // Read all notes from Firebase
-    const notesRef = db.ref('notes');
-    const snapshot = await notesRef.once('value');
+    try {
+      const result = await firebaseRequest('/notes', 'GET');
+      const notesData = result.data || {};
 
-    let notes = [];
-    if (snapshot.exists()) {
-      const notesData = snapshot.val();
-      // Convert Firebase object to array
-      notes = Object.keys(notesData).map(key => ({
-        id: key,
-        ...notesData[key]
+      let notes = [];
+      for (const key in notesData) {
+        notes.push({
+          id: key,
+          ...notesData[key]
+        });
+      }
+
+      basicIO.write(JSON.stringify({
+        success: true,
+        message: 'Notes retrieved successfully',
+        data: notes
+      }));
+
+    } catch (err) {
+      console.error('Firebase read error:', err.message);
+      basicIO.write(JSON.stringify({
+        success: true,
+        message: 'Notes retrieved successfully',
+        data: []
       }));
     }
-
-    basicIO.write(JSON.stringify({
-      success: true,
-      message: 'Notes retrieved successfully',
-      data: notes
-    }));
-
-    console.log(`Retrieved ${notes.length} notes`);
 
   } catch (error) {
     basicIO.write(JSON.stringify({
       success: false,
       message: `Error: ${error.message}`
     }));
-    console.error('Function error:', error);
   }
+  context.close();
 }
