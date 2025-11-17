@@ -5,7 +5,10 @@
       "create_note",
       "read_notes",
       "update_note",
-      "delete_note"
+      "delete_note",
+      "user_register",
+      "user_login",
+      "verify_token"
     ],
     "ignore": [],
     "source": "functions"
@@ -15,4 +18,3 @@
     "plugin": "zcatalyst-cli-plugin-react"
   }
 }
-

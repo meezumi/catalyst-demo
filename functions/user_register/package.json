@@ -1,0 +1,12 @@
+{
+	"name": "user_register",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "user1@demo1.itotcloud.in",
+	"dependencies": {
+		"zcatalyst-sdk-node": "latest",
+		"bcryptjs": "^2.4.3",
+		"jsonwebtoken": "^9.0.0",
+		"firebase-admin": "^12.0.0"
+	}
+}

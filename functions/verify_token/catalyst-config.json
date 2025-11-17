@@ -1,0 +1,11 @@
+{
+	"deployment": {
+		"name": "verify_token",
+		"stack": "node14",
+		"type": "basicio",
+		"env_variables": {}
+	},
+	"execution": {
+		"main": "index.js"
+	}
+}
