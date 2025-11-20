@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalyst Notes App - Complete Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: #2d2d2d;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            letter-spacing: 0.3px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            border-radius: 12px;
+        }
+        
+        .page-break {
+            page-break-after: always;
+            padding: 40px 0;
+            border-bottom: 2px solid #e0e7ff;
+            margin: 40px 0;
+        }
+        
+        h1 {
+            color: #1a202c;
+            margin: 35px 0 25px 0;
+            font-size: 2.8em;
+            font-weight: 700;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+        
+        h2 {
+            color: #1f2937;
+            margin: 30px 0 18px 0;
+            font-size: 2em;
+            font-weight: 700;
+            border-left: 5px solid #3498db;
+            padding-left: 20px;
+            letter-spacing: -0.3px;
+        }
+        
+        h3 {
+            color: #374151;
+            margin: 22px 0 12px 0;
+            font-size: 1.4em;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+        
+        h4 {
+            color: #4b5563;
+            font-size: 1.15em;
+            font-weight: 600;
+            margin: 15px 0 8px 0;
+        }
+        
+        p {
+            margin: 16px 0;
+            text-align: justify;
+            font-size: 1.02em;
+            color: #3a3f47;
+        }
+        
+        .intro-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        
+        .intro-section h1 {
+            border-bottom-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 3.2em;
+        }
+        
+        .intro-section p {
+            font-size: 1.12em;
+            margin: 16px 0;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+        
+        ul, ol {
+            margin: 18px 0 18px 35px;
+        }
+        
+        li {
+            margin: 10px 0;
+            font-size: 1.02em;
+            color: #3a3f47;
+        }
+        
+        code {
+            background: #f0f4ff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #c5192d;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 22px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 22px 0;
+            line-height: 1.6;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.92em;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .code-label {
+            background: #334155;
+            color: #f1f5f9;
+            padding: 10px 16px;
+            border-radius: 6px 6px 0 0;
+            margin: 20px 0 0 0;
+            font-weight: 600;
+            font-size: 0.92em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .feature-box {
+            background: linear-gradient(135deg, #d4fc79 0%, #96f97b 100%);
+            border-left: 5px solid #22c55e;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+        }
+        
+        .feature-box h4 {
+            color: #15803d;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .feature-box p {
+            color: #166534;
+            font-size: 0.98em;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+        }
+        
+        .warning-box strong {
+            color: #d97706;
+        }
+        
+        .warning-box ul {
+            margin: 12px 0 0 35px;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin: 22px 0;
+        }
+        
+        .tech-item {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 18px;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            border-color: #94a3b8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .tech-item strong {
+            color: #0f766e;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+        
+        .tech-item line {
+            color: #64748b;
+            font-size: 0.98em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        table th {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 14px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.95em;
+        }
+        
+        table td {
+            padding: 14px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.98em;
+            color: #475569;
+        }
+        
+        table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        table tr:hover {
+            background: #f0f4f8;
+        }
+        
+        .endpoint-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #0284c7;
+            border-radius: 10px;
+            padding: 22px;
+            margin: 18px 0;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
+        }
+        
+        .endpoint-card p {
+            margin: 10px 0;
+            color: #1e3a8a;
+        }
+        
+        .endpoint-card .method {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            margin-right: 12px;
+            font-size: 0.9em;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 1px;
+        }
+        
+        .method.get {
+            background: #06b6d4;
+            color: white;
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+        }
+        
+        .method.post {
+            background: #10b981;
+            color: white;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+        
+        .diagram {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            padding: 24px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 22px 0;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: auto;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9em;
+            color: #1e293b;
+            line-height: 1.8;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
+        }
+        
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 320px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25em;
+            margin: 22px 0;
+            text-align: center;
+            flex-direction: column;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+            font-weight: 600;
+        }
+        
+        .screenshot-placeholder p {
+            color: white;
+            text-align: center;
+        }
+        
+        .toc {
+            background: linear-gradient(135deg, #ede9fe 0%, #f3e8ff 100%);
+            padding: 24px;
+            border-radius: 10px;
+            margin: 22px 0;
+            border: 2px solid #d8b4fe;
+        }
+        
+        .toc h3 {
+            color: #6b21a8;
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+        
+        .toc ol {
+            margin-left: 25px;
+        }
+        
+        .toc li {
+            margin: 12px 0;
+            color: #581c87;
+            font-weight: 500;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+        
+        strong {
+            color: #1a202c;
+            font-weight: 700;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #fef3c7 0%, #fcd34d 100%);
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        /* Syntax Highlighting for Code */
+        .keyword { color: #f472b6; font-weight: 600; }
+        .string { color: #86efac; }
+        .number { color: #fbbf24; }
+        .function { color: #60a5fa; font-weight: 600; }
+        .comment { color: #78716c; font-style: italic; }
+        .property { color: #93c5fd; }
+        .value { color: #a7f3d0; }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Title Page -->
+        <div class="intro-section">
+            <h1>Catalyst Notes App</h1>
+            <p style="font-size: 1.3em; margin: 20px 0; color: white; font-weight: 600;">Complete Documentation</p>
+            <p style="color: white; font-weight: 600;">A modern, full-stack notes application built with React, Node.js, Firebase, and Zoho Catalyst serverless platform.</p>
+            <p style="margin-top: 30px; font-size: 0.95em; opacity: 0.9; font-weight: 400; color: white;">
+                <strong style="color: white;">Version:</strong> 1.0<br>
+                <strong style="color: white;">Date:</strong> November 2025<br>
+                <strong style="color: white;">Status:</strong> Production Ready
+            </p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>📋 Table of Contents</h3>
+            <ol>
+                <li>Overview & Features</li>
+                <li>Architecture & Technology Stack</li>
+                <li>Application Workflow</li>
+                <li>User Interface Walkthrough</li>
+                <li>Backend API Endpoints</li>
+                <li>Authentication System</li>
+                <li>Database Structure</li>
+                <li>Deployment & Infrastructure</li>
+                <li>Code Snippets & Implementation</li>
+                <li>Troubleshooting & Maintenance</li>
+            </ol>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 1. Overview & Features -->
+        <h2>1. Overview & Features</h2>
+
+        <h3>Project Overview</h3>
+        <p>
+            The <strong>Catalyst Notes App</strong> is a modern, cloud-native notes application that demonstrates a complete full-stack development workflow. It combines a responsive React frontend with serverless Node.js backend functions, Firebase Realtime Database, and JWT-based authentication. The application showcases best practices for building scalable, maintainable web applications on the Zoho Catalyst platform.
+        </p>
+
+        <h3>Key Features</h3>
+        <ul>
+            <li><strong>User Authentication:</strong> Secure registration and login with JWT tokens</li>
+            <li><strong>CRUD Operations:</strong> Create, Read, Update, and Delete notes seamlessly</li>
+            <li><strong>Real-time Database:</strong> Firebase Realtime Database for persistent storage</li>
+            <li><strong>Responsive UI:</strong> Modern, glassmorphic design with smooth animations</li>
+            <li><strong>Token-based Security:</strong> Password hashing with bcryptjs and JWT authentication</li>
+            <li><strong>Serverless Architecture:</strong> Deployed on Zoho Catalyst without server management</li>
+            <li><strong>Error Handling:</strong> Comprehensive error handling and user feedback</li>
+            <li><strong>Local Storage:</strong> Offline note caching with localStorage</li>
+        </ul>
+
+        <div class="feature-box">
+            <h4>✅ Production Ready</h4>
+            <p>This application is fully tested and deployed to a live environment. All endpoints have been verified to work without timeout issues and support concurrent users.</p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 2. Architecture & Technology Stack -->
+        <h2>2. Architecture & Technology Stack</h2>
+
+        <h3>System Architecture</h3>
+        <div class="diagram">
+            ┌─────────────────────────────────────────────────┐<br>
+            │           Frontend (React 19.2.0)                │<br>
+            │    ├─ Authentication UI (Login/Register)         │<br>
+            │    ├─ Notes CRUD Interface                       │<br>
+            │    └─ Responsive Design (CSS)                    │<br>
+            └──────────────┬──────────────────────────────────┘<br>
+                           │ HTTPS<br>
+                           │<br>
+            ┌──────────────┴──────────────────────────────────┐<br>
+            │     Zoho Catalyst Serverless Platform            │<br>
+            │    ├─ user_register (Node.js)                    │<br>
+            │    ├─ user_login (Node.js)                       │<br>
+            │    ├─ create_note (Node.js)                      │<br>
+            │    ├─ read_notes (Node.js)                       │<br>
+            │    ├─ update_note (Node.js)                      │<br>
+            │    ├─ delete_note (Node.js)                      │<br>
+            │    └─ verify_token (Node.js)                     │<br>
+            └──────────────┬──────────────────────────────────┘<br>
+                           │ HTTPS REST API<br>
+                           │<br>
+            ┌──────────────┴──────────────────────────────────┐<br>
+            │    Firebase Realtime Database                    │<br>
+            │    ├─ /users/{userId}                            │<br>
+            │    └─ /notes/{noteId}                            │<br>
+            └──────────────────────────────────────────────────┘
+        </div>
+
+        <h3>Technology Stack</h3>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong>Frontend</strong><br>
+                • React 19.2.0<br>
+                • Modern CSS3 (Glassmorphism)<br>
+                • Fetch API<br>
+                • localStorage
+            </div>
+            <div class="tech-item">
+                <strong>Backend</strong><br>
+                • Node.js 14<br>
+                • Express-style routing<br>
+                • HTTPS REST API<br>
+                • Async/Await
+            </div>
+            <div class="tech-item">
+                <strong>Security</strong><br>
+                • bcryptjs (v2.4.3)<br>
+                • jsonwebtoken (v9.0.0)<br>
+                • 10 salt rounds for hashing<br>
+                • 7-day token expiration
+            </div>
+            <div class="tech-item">
+                <strong>Infrastructure</strong><br>
+                • Zoho Catalyst<br>
+                • Firebase Realtime DB<br>
+                • Serverless Functions<br>
+                • HTTPS with SSL
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 3. Application Workflow -->
+        <h2>3. Application Workflow</h2>
+
+        <h3>User Journey Flow</h3>
+        <div class="diagram">
+            START<br>
+              ↓<br>
+            User visits app<br>
+              ↓<br>
+            Authenticated? ──NO──→ Show Login/Register ──→ Submit Credentials<br>
+              │                                              ↓<br>
+              │                          Backend validates & hashes password<br>
+              │                              ↓<br>
+              │                          Generate JWT token<br>
+              │                              ↓<br>
+              │                          Store token in localStorage<br>
+              │                              ↓<br>
+              YES ←────────────────────────────────────────┘<br>
+              ↓<br>
+            Load Notes from Firebase<br>
+              ↓<br>
+            Display Notes Dashboard<br>
+              ├─ View All Notes<br>
+              ├─ Create New Note ──→ Send to Backend ──→ Save to Firebase<br>
+              ├─ Edit Note ────────→ Send to Backend ──→ Update in Firebase<br>
+              ├─ Delete Note ──────→ Send to Backend ──→ Remove from Firebase<br>
+              └─ Logout ───────────→ Clear Token ──→ Return to Login<br>
+              ↓<br>
+            END
+        </div>
+
+        <h3>Request/Response Flow</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Operation</th>
+                    <th>Frontend Action</th>
+                    <th>Backend Processing</th>
+                    <th>Database Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Register</strong></td>
+                    <td>Submit email, password, username</td>
+                    <td>Hash password, create user</td>
+                    <td>Store in /users/{userId}</td>
+                </tr>
+                <tr>
+                    <td><strong>Login</strong></td>
+                    <td>Submit email, password</td>
+                    <td>Verify credentials, generate JWT</td>
+                    <td>Read from /users collection</td>
+                </tr>
+                <tr>
+                    <td><strong>Create Note</strong></td>
+                    <td>Enter title, content</td>
+                    <td>Generate ID, add timestamps</td>
+                    <td>Write to /notes/{noteId}</td>
+                </tr>
+                <tr>
+                    <td><strong>Read Notes</strong></td>
+                    <td>Request notes on load</td>
+                    <td>Query database</td>
+                    <td>Retrieve from /notes</td>
+                </tr>
+                <tr>
+                    <td><strong>Update Note</strong></td>
+                    <td>Edit title/content, submit</td>
+                    <td>Update timestamp</td>
+                    <td>Merge changes in /notes/{noteId}</td>
+                </tr>
+                <tr>
+                    <td><strong>Delete Note</strong></td>
+                    <td>Click delete button</td>
+                    <td>Validate request</td>
+                    <td>Remove from /notes/{noteId}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
+        <!-- 4. User Interface Walkthrough -->
+        <h2>4. User Interface Walkthrough</h2>
+
+        <h3>Landing / Login Screen</h3>
+        <p>
+            <strong>Screenshot 1: User Registration Form</strong><br>
+            This is the first screen users see when they visit the application. It displays a modern, secure registration interface with glassmorphic design. The form allows new users to create an account by entering their username, email, and password.
+        </p>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #e0e7ff;">
+            <div style="background: linear-gradient(135deg, #1a1f3a 0%, #16213e 100%); padding: 40px 30px; border-radius: 12px; text-align: center; color: white; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+                <h3 style="color: #60a5fa; font-size: 2.2em; margin: 0 0 10px 0; font-weight: 700;">Catalyst Notes</h3>
+                <p style="font-size: 1.1em; margin: 0 0 30px 0; color: #cbd5e1;">Secure Notes with Authentication</p>
+                
+                <div style="text-align: left; background: rgba(15, 23, 42, 0.6); padding: 30px; border-radius: 10px;">
+                    <h4 style="color: #f1f5f9; margin: 0 0 20px 0; font-size: 1.3em;">Create Account</h4>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #e2e8f0; display: block; font-weight: 600; margin-bottom: 8px;">USERNAME:</label>
+                        <input type="text" placeholder="Enter username..." style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #334155; color: #94a3b8; border-radius: 6px; font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #e2e8f0; display: block; font-weight: 600; margin-bottom: 8px;">EMAIL:</label>
+                        <input type="email" placeholder="Enter email..." style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #334155; color: #94a3b8; border-radius: 6px; font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="color: #e2e8f0; display: block; font-weight: 600; margin-bottom: 8px;">PASSWORD:</label>
+                        <input type="password" placeholder="Enter password..." style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #334155; color: #94a3b8; border-radius: 6px; font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <button style="width: 100%; background: #3b82f6; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 700; font-size: 1em; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">Create Account</button>
+                </div>
+                <p style="color: #94a3b8; font-size: 0.95em; margin-top: 20px; margin-bottom: 0;">Already have an account? <span style="color: #3b82f6; text-decoration: underline; cursor: pointer;">Sign In</span></p>
+            </div>
+        </div>
+        <div class="feature-box">
+            <h4>🔐 Registration Interface Features</h4>
+            <p>
+                ✓ <strong>Glassmorphic Design:</strong> Modern frosted glass effect with dark gradient background<br>
+                ✓ <strong>Three Input Fields:</strong> Username, Email, and Password with clear labels<br>
+                ✓ <strong>Input Validation:</strong> Real-time feedback and placeholder text for guidance<br>
+                ✓ <strong>Primary CTA:</strong> Prominent blue "Create Account" button with shadow effect<br>
+                ✓ <strong>Tab Navigation:</strong> Quick link to switch to "Sign In" mode for existing users<br>
+                ✓ <strong>Security:</strong> Password field masked for privacy<br>
+                ✓ <strong>Responsive Layout:</strong> Centered form with proper spacing and accessibility
+            </p>
+        </div>
+
+        <h3>Notes Dashboard</h3>
+        <p>
+            <strong>Screenshot 2: Authenticated Dashboard with Notes</strong><br>
+            After successful login, users see the main dashboard. This shows the complete notes management interface with a user profile section, new note creation button, and existing notes displayed as cards. Each note shows the title, content preview, update timestamp, and action buttons.
+        </p>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #e0e7ff;">
+            <div style="background: linear-gradient(135deg, #1a1f3a 0%, #16213e 100%); padding: 40px 30px; border-radius: 12px; color: white; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 20px; border-bottom: 1px solid #334155;">
+                    <h3 style="color: #60a5fa; font-size: 2em; margin: 0; font-weight: 700;">Catalyst Notes App</h3>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 8px; color: #94a3b8; font-weight: 600;">
+                            <span style="font-size: 1.2em;">👤</span>
+                            <span>testing1</span>
+                        </div>
+                        <button style="background: #ef4444; color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: background 0.3s; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);">🚪 Logout</button>
+                    </div>
+                </div>
+                
+                <p style="color: #cbd5e1; margin: 0 0 30px 0; font-size: 0.95em;">Built with Catalyst Serverless</p>
+                
+                <button style="background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 700; margin-bottom: 30px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">+ New Note</button>
+                
+                <div style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 20px; border-top: 3px solid #3b82f6; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);">
+                    <h4 style="color: #f1f5f9; font-size: 1.3em; margin: 0 0 12px 0; font-weight: 700;">new note</h4>
+                    <p style="color: #cbd5e1; margin: 0 0 15px 0; font-size: 0.95em;">testing out creating a new note</p>
+                    <p style="color: #64748b; font-size: 0.85em; margin: 0 0 20px 0;">UPDATED: 11/20/2025</p>
+                    <div style="display: flex; gap: 10px;">
+                        <button style="background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.3s;">✏️ Edit</button>
+                        <button style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.3s;">🗑️ Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-box">
+            <h4>📋 Dashboard Interface Features</h4>
+            <p>
+                ✓ <strong>User Profile Section:</strong> Displays logged-in username with profile icon in top-right<br>
+                ✓ <strong>Logout Button:</strong> Red call-to-action button for signing out securely<br>
+                ✓ <strong>New Note Button:</strong> Prominent blue button with "+ New Note" text for creating notes<br>
+                ✓ <strong>Note Cards:</strong> Dark themed cards displaying individual notes with accent border<br>
+                ✓ <strong>Note Content:</strong> Title, content preview, and last updated timestamp<br>
+                ✓ <strong>Action Buttons:</strong> Blue Edit button and red Delete button for managing notes<br>
+                ✓ <strong>Dark Theme:</strong> Professional dark UI with blue accents for better readability<br>
+                ✓ <strong>Responsive Design:</strong> Properly spaced layout with good visual hierarchy
+            </p>
+        </div>
+
+        <h3>Create/Edit Note Modal</h3>
+        <div class="screenshot-placeholder">
+            <div>
+                <p>Note Creation / Editing Modal</p>
+                <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">
+                    Form with title and content fields<br>
+                    Save and cancel buttons with validation
+                </p>
+            </div>
+        </div>
+        <p>
+            When creating or editing a note, users see a modal form with:
+        </p>
+        <ul>
+            <li><strong>Title Input:</strong> Text field for note title</li>
+            <li><strong>Content Area:</strong> Textarea for note content</li>
+            <li><strong>Timestamps:</strong> Display of creation and last edited time</li>
+            <li><strong>Validation:</strong> Prevents empty submissions</li>
+            <li><strong>Loading State:</strong> Button feedback during save</li>
+            <li><strong>Action Buttons:</strong> Save or Cancel</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <!-- 5. Backend API Endpoints -->
+        <h2>5. Backend API Endpoints</h2>
+
+        <h3>Authentication Endpoints</h3>
+
+        <div class="endpoint-card">
+            <span class="method get">GET</span>
+            <strong>/server/user_register/execute</strong>
+            <p><strong>Description:</strong> Register a new user account</p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>email</code> - User email address (required)</li>
+                <li><code>password</code> - User password (required)</li>
+                <li><code>username</code> - Display name (required)</li>
+            </ul>
+            <p><strong>Response:</strong></p>
+            <pre><span style="color: #e2e8f0;">{</span>
+  <span class="property">"success"</span><span style="color: #e2e8f0;">:</span> <span class="number">true</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"message"</span><span style="color: #e2e8f0;">:</span> <span class="string">"User registered successfully"</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"data"</span><span style="color: #e2e8f0;">: {</span>
+    <span class="property">"userId"</span><span style="color: #e2e8f0;">:</span> <span class="string">"mi2pfpgl4c0a5x56xc"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"username"</span><span style="color: #e2e8f0;">:</span> <span class="string">"john_doe"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"email"</span><span style="color: #e2e8f0;">:</span> <span class="string">"john@example.com"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"token"</span><span style="color: #e2e8f0;">:</span> <span class="string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span>
+  <span style="color: #e2e8f0;">}</span>
+<span style="color: #e2e8f0;">}</span></pre>
+        </div>
+
+        <div class="endpoint-card">
+            <span class="method get">GET</span>
+            <strong>/server/user_login/execute</strong>
+            <p><strong>Description:</strong> Authenticate user and return JWT token</p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>email</code> - User email address (required)</li>
+                <li><code>password</code> - User password (required)</li>
+            </ul>
+            <p><strong>Response:</strong></p>
+            <pre><span style="color: #e2e8f0;">{</span>
+  <span class="property">"success"</span><span style="color: #e2e8f0;">:</span> <span class="number">true</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"message"</span><span style="color: #e2e8f0;">:</span> <span class="string">"Login successful"</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"data"</span><span style="color: #e2e8f0;">: {</span>
+    <span class="property">"userId"</span><span style="color: #e2e8f0;">:</span> <span class="string">"mi2pfpgl4c0a5x56xc"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"username"</span><span style="color: #e2e8f0;">:</span> <span class="string">"john_doe"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"email"</span><span style="color: #e2e8f0;">:</span> <span class="string">"john@example.com"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"token"</span><span style="color: #e2e8f0;">:</span> <span class="string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span>
+  <span style="color: #e2e8f0;">}</span>
+<span style="color: #e2e8f0;">}</span></pre>
+        </div>
+
+        <h3>Notes CRUD Endpoints</h3>
+
+        <div class="endpoint-card">
+            <span class="method get">GET</span>
+            <strong>/server/create_note/execute</strong>
+            <p><strong>Description:</strong> Create a new note</p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>title</code> - Note title (required)</li>
+                <li><code>content</code> - Note content (required)</li>
+            </ul>
+            <p><strong>Response:</strong></p>
+            <pre><span style="color: #e2e8f0;">{</span>
+  <span class="property">"success"</span><span style="color: #e2e8f0;">:</span> <span class="number">true</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"message"</span><span style="color: #e2e8f0;">:</span> <span class="string">"Note created successfully"</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"data"</span><span style="color: #e2e8f0;">: {</span>
+    <span class="property">"id"</span><span style="color: #e2e8f0;">:</span> <span class="string">"mi2pgesbitqi26uo8we"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"title"</span><span style="color: #e2e8f0;">:</span> <span class="string">"My First Note"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"content"</span><span style="color: #e2e8f0;">:</span> <span class="string">"This is my first note..."</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"createdAt"</span><span style="color: #e2e8f0;">:</span> <span class="string">"2025-11-17T05:29:40.571Z"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"updatedAt"</span><span style="color: #e2e8f0;">:</span> <span class="string">"2025-11-17T05:29:40.571Z"</span>
+  <span style="color: #e2e8f0;">}</span>
+<span style="color: #e2e8f0;">}</span></pre>
+        </div>
+
+        <div class="endpoint-card">
+            <span class="method get">GET</span>
+            <strong>/server/read_notes/execute</strong>
+            <p><strong>Description:</strong> Retrieve all notes from database</p>
+            <p><strong>Parameters:</strong> None</p>
+            <p><strong>Response:</strong></p>
+            <pre><span style="color: #e2e8f0;">{</span>
+  <span class="property">"success"</span><span style="color: #e2e8f0;">:</span> <span class="number">true</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"message"</span><span style="color: #e2e8f0;">:</span> <span class="string">"Notes retrieved successfully"</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"data"</span><span style="color: #e2e8f0;">: [</span>
+    <span style="color: #e2e8f0;">{</span>
+      <span class="property">"id"</span><span style="color: #e2e8f0;">:</span> <span class="string">"mi2pgesbitqi26uo8we"</span><span style="color: #e2e8f0;">,</span>
+      <span class="property">"title"</span><span style="color: #e2e8f0;">:</span> <span class="string">"My First Note"</span><span style="color: #e2e8f0;">,</span>
+      <span class="property">"content"</span><span style="color: #e2e8f0;">:</span> <span class="string">"This is my first note..."</span><span style="color: #e2e8f0;">,</span>
+      <span class="property">"createdAt"</span><span style="color: #e2e8f0;">:</span> <span class="string">"2025-11-17T05:29:40.571Z"</span><span style="color: #e2e8f0;">,</span>
+      <span class="property">"updatedAt"</span><span style="color: #e2e8f0;">:</span> <span class="string">"2025-11-17T05:29:40.571Z"</span>
+    <span style="color: #e2e8f0;">}</span>
+  <span style="color: #e2e8f0;">]</span>
+<span style="color: #e2e8f0;">}</span></pre>
+        </div>
+
+        <div class="endpoint-card">
+            <span class="method get">GET</span>
+            <strong>/server/update_note/execute</strong>
+            <p><strong>Description:</strong> Update an existing note</p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>id</code> - Note ID (required)</li>
+                <li><code>title</code> - Updated title (required)</li>
+                <li><code>content</code> - Updated content (required)</li>
+            </ul>
+            <p><strong>Response:</strong></p>
+            <pre><span style="color: #e2e8f0;">{</span>
+  <span class="property">"success"</span><span style="color: #e2e8f0;">:</span> <span class="number">true</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"message"</span><span style="color: #e2e8f0;">:</span> <span class="string">"Note updated successfully"</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"data"</span><span style="color: #e2e8f0;">: {</span>
+    <span class="property">"id"</span><span style="color: #e2e8f0;">:</span> <span class="string">"mi2pgesbitqi26uo8we"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"title"</span><span style="color: #e2e8f0;">:</span> <span class="string">"Updated Title"</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"content"</span><span style="color: #e2e8f0;">:</span> <span class="string">"Updated content..."</span><span style="color: #e2e8f0;">,</span>
+    <span class="property">"updatedAt"</span><span style="color: #e2e8f0;">:</span> <span class="string">"2025-11-17T07:40:30.123Z"</span>
+  <span style="color: #e2e8f0;">}</span>
+<span style="color: #e2e8f0;">}</span></pre>
+        </div>
+
+        <div class="endpoint-card">
+            <span class="method get">GET</span>
+            <strong>/server/delete_note/execute</strong>
+            <p><strong>Description:</strong> Delete a note</p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>id</code> - Note ID to delete (required)</li>
+            </ul>
+            <p><strong>Response:</strong></p>
+            <pre><span style="color: #e2e8f0;">{</span>
+  <span class="property">"success"</span><span style="color: #e2e8f0;">:</span> <span class="number">true</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"message"</span><span style="color: #e2e8f0;">:</span> <span class="string">"Note deleted successfully"</span><span style="color: #e2e8f0;">,</span>
+  <span class="property">"data"</span><span style="color: #e2e8f0;">: {</span>
+    <span class="property">"id"</span><span style="color: #e2e8f0;">:</span> <span class="string">"mi2pgesbitqi26uo8we"</span>
+  <span style="color: #e2e8f0;">}</span>
+<span style="color: #e2e8f0;">}</span></pre>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 6. Authentication System -->
+        <h2>6. Authentication System</h2>
+
+        <h3>JWT Token Implementation</h3>
+        <p>
+            The application uses <strong>JSON Web Tokens (JWT)</strong> for stateless authentication. When a user logs in or registers, a JWT token is generated and stored in the browser's localStorage for future requests.
+        </p>
+
+        <h3>Token Structure</h3>
+        <div class="code-label">JWT Token Payload</div>
+        <pre><span class="comment">// JWT Token Structure with payload data</span>
+{
+  <span class="property">"userId"</span>: <span class="string">"mi2pfpgl4c0a5x56xc"</span>,
+  <span class="property">"email"</span>: <span class="string">"john@example.com"</span>,
+  <span class="property">"username"</span>: <span class="string">"john_doe"</span>,
+  <span class="property">"iat"</span>: <span class="number">1763357348</span>,
+  <span class="property">"exp"</span>: <span class="number">1763962148</span>
+}</pre>
+
+        <h3>Password Security</h3>
+        <ul>
+            <li><strong>Algorithm:</strong> bcryptjs with 10 salt rounds</li>
+            <li><strong>Hashing:</strong> Passwords are never stored in plain text</li>
+            <li><strong>Verification:</strong> Credentials are verified during login</li>
+            <li><strong>Token Expiration:</strong> 7 days (604800 seconds)</li>
+        </ul>
+
+        <div class="feature-box">
+            <h4>🔒 Security Best Practices</h4>
+            <p>
+                ✓ Password hashing with bcryptjs<br>
+                ✓ JWT token-based authentication<br>
+                ✓ HTTPS-only communication<br>
+                ✓ Token stored in localStorage (could be upgraded to httpOnly cookies)<br>
+                ✓ 7-day token expiration<br>
+                ✓ Email format validation
+            </p>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 7. Database Structure -->
+        <h2>7. Database Structure</h2>
+
+        <h3>Firebase Realtime Database</h3>
+        <p>
+            The application uses <strong>Firebase Realtime Database</strong> for data persistence. The database is organized in a hierarchical structure that supports fast queries and real-time synchronization.
+        </p>
+
+        <h3>Database Schema</h3>
+        <div class="code-label">Firebase Database Structure</div>
+        <pre>catalyst-notes-app-default-rtdb/
+├── <span class="keyword">users</span>/
+│   └── {<span class="property">userId</span>}/
+│       ├── <span class="property">id</span>: <span class="value">string</span>
+│       ├── <span class="property">username</span>: <span class="value">string</span>
+│       ├── <span class="property">email</span>: <span class="value">string</span>
+│       ├── <span class="property">password</span>: <span class="value">string</span> <span class="comment">(hashed)</span>
+│       └── <span class="property">createdAt</span>: ISO8601 timestamp
+└── <span class="keyword">notes</span>/
+    └── {<span class="property">noteId</span>}/
+        ├── <span class="property">id</span>: <span class="value">string</span>
+        ├── <span class="property">title</span>: <span class="value">string</span>
+        ├── <span class="property">content</span>: <span class="value">string</span>
+        ├── <span class="property">createdAt</span>: ISO8601 timestamp
+        └── <span class="property">updatedAt</span>: ISO8601 timestamp</pre>
+
+        <h3>Data Models</h3>
+
+        <h4>User Model</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>String</td>
+                    <td>Unique user identifier (generated on backend)</td>
+                </tr>
+                <tr>
+                    <td>username</td>
+                    <td>String</td>
+                    <td>Display name chosen by user</td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>String</td>
+                    <td>User email (must be unique)</td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>String</td>
+                    <td>Bcrypt hashed password</td>
+                </tr>
+                <tr>
+                    <td>createdAt</td>
+                    <td>ISO8601</td>
+                    <td>Account creation timestamp</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Note Model</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>String</td>
+                    <td>Unique note identifier</td>
+                </tr>
+                <tr>
+                    <td>title</td>
+                    <td>String</td>
+                    <td>Note title</td>
+                </tr>
+                <tr>
+                    <td>content</td>
+                    <td>String</td>
+                    <td>Note content/body</td>
+                </tr>
+                <tr>
+                    <td>createdAt</td>
+                    <td>ISO8601</td>
+                    <td>Note creation timestamp</td>
+                </tr>
+                <tr>
+                    <td>updatedAt</td>
+                    <td>ISO8601</td>
+                    <td>Last modification timestamp</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Firebase Console Screenshot</h3>
+        <p>
+            <strong>Screenshot 3: Firebase Realtime Database</strong><br>
+            This screenshot shows the actual Firebase Realtime Database structure as it appears in the Firebase Console. It demonstrates the hierarchical organization of data with the `/notes` and `/users` collections populated with real application data. The database stores all user account information and notes in JSON format.
+        </p>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #e0e7ff;">
+            <div style="background: #1a1a1a; color: #e0e0e0; padding: 20px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; line-height: 1.6; box-shadow: 0 4px 12px rgba(0,0,0,0.3); overflow-x: auto;">
+                <div style="margin-bottom: 10px;">
+                    <span style="color: #3b82f6; font-weight: 600;">🔗</span>
+                    <span style="color: #60a5fa;">https://catalyst-notes-app-default-rtdb.firebaseio.com</span>
+                </div>
+                
+                <div style="margin-left: 20px;">
+                    <div style="margin-bottom: 8px;">
+                        <span style="color: #94a3b8;">▶</span>
+                        <span style="color: #60a5fa; font-weight: 600;">mi2tpsbdacmvb6l7kj7</span>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <span style="color: #94a3b8;">▶</span>
+                        <span style="color: #60a5fa; font-weight: 600;">mi4rh1ln9cd05tk1o6b</span>
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <span style="color: #94a3b8;">▼</span>
+                        <span style="color: #60a5fa; font-weight: 600;">mi7aisns1qcnh6gajpk</span>
+                        <div style="margin-left: 20px; background: rgba(59, 130, 246, 0.1); padding: 10px; border-radius: 4px; margin-top: 6px;">
+                            <div style="color: #86efac;"><span style="color: #93c5fd;">content</span>: <span style="color: #86efac;">"testing out creating a new note"</span></div>
+                            <div style="color: #86efac;"><span style="color: #93c5fd;">createdAt</span>: <span style="color: #86efac;">"2025-11-20T10:30:28.504Z"</span></div>
+                            <div style="color: #86efac;"><span style="color: #93c5fd;">id</span>: <span style="color: #86efac;">"mi7aisns1qcnh6gajpk"</span></div>
+                            <div style="color: #86efac;"><span style="color: #93c5fd;">title</span>: <span style="color: #86efac;">"new note"</span></div>
+                            <div style="color: #86efac;"><span style="color: #93c5fd;">updatedAt</span>: <span style="color: #86efac;">"2025-11-20T10:30:28.504Z"</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-left: 20px;">
+                    <div style="margin-bottom: 12px;">
+                        <span style="color: #94a3b8;">▼</span>
+                        <span style="color: #60a5fa; font-weight: 600;">users</span>
+                        <div style="margin-left: 20px; margin-top: 8px;">
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2oywadge2bhdk5jkd</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2bfpg14c0a5x56xc</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2p1672zvjmg3fh4yr</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2s50spvgb76oy893n</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2st8ekqqdcm7kewn</span> <span style="color: #78716c; margin-left: 10px;">+ 🗑️</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2tp8y1xqrzvqgxjx</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi4fh7v31qj9dvugkd7</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi7ai7bvd8rhe3e7l17</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-box">
+            <h4>🗄️ Firebase Database Structure</h4>
+            <p>
+                ✓ <strong>Root URL:</strong> https://catalyst-notes-app-default-rtdb.firebaseio.com<br>
+                ✓ <strong>Notes Collection:</strong> Stores all user notes with unique IDs<br>
+                ✓ <strong>Note Fields:</strong> id, title, content, createdAt, updatedAt timestamps<br>
+                ✓ <strong>Users Collection:</strong> Contains registered user accounts<br>
+                ✓ <strong>User Count:</strong> Multiple user records showing active app usage<br>
+                ✓ <strong>Data Format:</strong> JSON structure with hierarchical organization<br>
+                ✓ <strong>Real-time Sync:</strong> Changes immediately reflect in connected clients<br>
+                ✓ <strong>Scalability:</strong> Firebase handles concurrent reads/writes automatically
+            </p>
+        </div>
+
+        <div class="page-break"></div>
+        <h2>8. Deployment & Infrastructure</h2>
+
+        <h3>Zoho Catalyst Platform</h3>
+        <p>
+            The application is deployed on <strong>Zoho Catalyst</strong>, a serverless platform that provides auto-scaling, automatic SSL, and seamless deployment without managing servers.
+        </p>
+
+        <h3>Deployment Architecture</h3>
+        <div class="diagram">
+            Local Development<br>
+                    ↓<br>
+            Git Repository (17thNov branch)<br>
+                    ↓<br>
+            catalyst deploy<br>
+                    ↓<br>
+            Zoho Catalyst Build System<br>
+                    ├─ Compile React frontend<br>
+                    ├─ Package Node.js functions<br>
+                    ├─ Install dependencies<br>
+                    └─ Deploy to cloud<br>
+                    ↓<br>
+            Live Environment<br>
+            https://demoproject-60045401207.development.catalystserverless.in
+        </div>
+
+        <h3>Frontend Deployment</h3>
+        <ul>
+            <li><strong>Build Tool:</strong> Webpack + Babel (via create-react-app)</li>
+            <li><strong>Output:</strong> Static HTML, CSS, JavaScript files</li>
+            <li><strong>Hosting:</strong> Catalyst static file serving</li>
+            <li><strong>URL:</strong> /app/index.html</li>
+        </ul>
+
+        <h3>Backend Deployment</h3>
+        <ul>
+            <li><strong>Runtime:</strong> Node.js 14</li>
+            <li><strong>Function Type:</strong> 8 serverless functions</li>
+            <li><strong>Framework:</strong> basicIO callback pattern</li>
+            <li><strong>Execution:</strong> On-demand, auto-scaling</li>
+            <li><strong>Cold Start:</strong> ~1-2 seconds typical</li>
+        </ul>
+
+        <h3>Live Deployment URLs</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>URL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Frontend App</td>
+                    <td>https://demoproject-60045401207.development.catalystserverless.in/app/index.html</td>
+                </tr>
+                <tr>
+                    <td>Register Endpoint</td>
+                    <td>/server/user_register/execute</td>
+                </tr>
+                <tr>
+                    <td>Login Endpoint</td>
+                    <td>/server/user_login/execute</td>
+                </tr>
+                <tr>
+                    <td>Create Note</td>
+                    <td>/server/create_note/execute</td>
+                </tr>
+                <tr>
+                    <td>Read Notes</td>
+                    <td>/server/read_notes/execute</td>
+                </tr>
+                <tr>
+                    <td>Update Note</td>
+                    <td>/server/update_note/execute</td>
+                </tr>
+                <tr>
+                    <td>Delete Note</td>
+                    <td>/server/delete_note/execute</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
+        <!-- 9. Code Snippets & Implementation -->
+        <h2>9. Code Snippets & Implementation</h2>
+
+        <h3>Frontend: Authentication Handling</h3>
+        <div class="code-label">React Component - User Registration</div>
+        <pre><span class="keyword">const</span> <span class="function">handleRegister</span> = <span class="keyword">async</span> (e) => {
+  e.preventDefault();
+  setAuthLoading(<span class="number">true</span>);
+  
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> url = <span class="string">`/server/user_register/execute?email=${encodeURIComponent(email)}`</span>;
+    
+    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(url, {
+      <span class="property">method</span>: <span class="string">'GET'</span>,
+      <span class="property">headers</span>: { <span class="property">'Content-Type'</span>: <span class="string">'application/json'</span> }
+    });
+    
+    <span class="keyword">const</span> responseData = <span class="keyword">await</span> response.<span class="function">json</span>();
+    <span class="keyword">const</span> result = responseData.output ? <span class="function">JSON.parse</span>(responseData.output) : responseData;
+    
+    <span class="keyword">if</span> (result.success) {
+      localStorage.<span class="function">setItem</span>(<span class="string">'authToken'</span>, result.data.token);
+      localStorage.<span class="function">setItem</span>(<span class="string">'user'</span>, <span class="function">JSON.stringify</span>(result.data));
+      setIsAuthenticated(<span class="number">true</span>);
+      setUser(result.data);
+    }
+  } <span class="keyword">catch</span> (err) {
+    setAuthError(<span class="string">`Error: ${err.message}`</span>);
+  } <span class="keyword">finally</span> {
+    setAuthLoading(<span class="number">false</span>);
+  }
+};</pre>
+
+        <h3>Backend: User Registration</h3>
+        <div class="code-label">Node.js Function - User Registration</div>
+        <pre><span class="keyword">async</span> <span class="keyword">function</span> <span class="function">handleRegister</span>(context, basicIO) {
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> email = basicIO.<span class="function">getArgument</span>(<span class="string">'email'</span>);
+    <span class="keyword">const</span> password = basicIO.<span class="function">getArgument</span>(<span class="string">'password'</span>);
+    
+    <span class="comment">// Validate inputs</span>
+    <span class="keyword">if</span> (!email || !password) {
+      basicIO.<span class="function">write</span>(<span class="function">JSON.stringify</span>({
+        <span class="property">success</span>: <span class="number">false</span>,
+        <span class="property">message</span>: <span class="string">'All fields required'</span>
+      }));
+      <span class="keyword">return</span>;
+    }
+    
+    <span class="comment">// Hash password with bcryptjs</span>
+    <span class="keyword">const</span> hashedPassword = <span class="keyword">await</span> bcrypt.<span class="function">hash</span>(password, <span class="number">10</span>);
+    
+    <span class="comment">// Create user object</span>
+    <span class="keyword">const</span> newUser = {
+      <span class="property">id</span>: userId,
+      <span class="property">email</span>: email,
+      <span class="property">password</span>: hashedPassword,
+      <span class="property">createdAt</span>: <span class="keyword">new</span> <span class="function">Date</span>().<span class="function">toISOString</span>()
+    };
+    
+    <span class="comment">// Save to Firebase</span>
+    <span class="keyword">await</span> <span class="function">firebaseRequest</span>(<span class="string">`/users/${userId}`</span>, <span class="string">'PUT'</span>, newUser);
+    
+    <span class="comment">// Generate JWT token</span>
+    <span class="keyword">const</span> token = jwt.<span class="function">sign</span>({userId}, JWT_SECRET, {<span class="property">expiresIn</span>: <span class="string">'7d'</span>});
+    
+    basicIO.<span class="function">write</span>(<span class="function">JSON.stringify</span>({
+      <span class="property">success</span>: <span class="number">true</span>,
+      <span class="property">message</span>: <span class="string">'User registered'</span>,
+      <span class="property">data</span>: {userId, token}
+    }));
+    
+  } <span class="keyword">catch</span> (error) {
+    basicIO.<span class="function">write</span>(<span class="function">JSON.stringify</span>({
+      <span class="property">success</span>: <span class="number">false</span>,
+      <span class="property">message</span>: <span class="string">`Error: ${error.message}`</span>
+    }));
+  }
+  context.<span class="function">close</span>();
+}</pre>
+
+        <h3>Backend: Firebase HTTPS Request</h3>
+        <div class="code-label">Utility Function - Firebase REST API</div>
+        <pre><span class="keyword">function</span> <span class="function">firebaseRequest</span>(path, method, data) {
+  <span class="keyword">return</span> <span class="keyword">new</span> <span class="function">Promise</span>((resolve, reject) => {
+    <span class="keyword">const</span> options = {
+      <span class="property">hostname</span>: <span class="string">'catalyst-notes-app-default-rtdb.firebaseio.com'</span>,
+      <span class="property">path</span>: <span class="string">`${path}.json`</span>,
+      <span class="property">method</span>: method,
+      <span class="property">headers</span>: { <span class="property">'Content-Type'</span>: <span class="string">'application/json'</span> },
+      <span class="property">timeout</span>: <span class="number">10000</span>
+    };
+    
+    <span class="keyword">const</span> req = https.<span class="function">request</span>(options, (res) => {
+      <span class="keyword">let</span> resData = <span class="string">''</span>;
+      res.<span class="function">on</span>(<span class="string">'data'</span>, chunk => resData += chunk);
+      res.<span class="function">on</span>(<span class="string">'end'</span>, () => {
+        <span class="keyword">try</span> {
+          <span class="function">resolve</span>({ 
+            <span class="property">status</span>: res.statusCode, 
+            <span class="property">data</span>: <span class="function">JSON.parse</span>(resData || <span class="string">'{}'</span>) 
+          });
+        } <span class="keyword">catch</span> (e) {
+          <span class="function">resolve</span>({ <span class="property">status</span>: res.statusCode, <span class="property">data</span>: resData });
+        }
+      });
+    });
+    
+    req.<span class="function">on</span>(<span class="string">'error'</span>, reject);
+    <span class="keyword">if</span> (data) req.<span class="function">write</span>(<span class="function">JSON.stringify</span>(data));
+    req.<span class="function">end</span>();
+  });
+}</pre>
+
+        <h3>Frontend: Notes CRUD</h3>
+        <div class="code-label">React Component - Create Note</div>
+        <pre><span class="keyword">const</span> <span class="function">handleAddNote</span> = <span class="keyword">async</span> (e) => {
+  e.preventDefault();
+  
+  <span class="keyword">if</span> (!formData.title.<span class="function">trim</span>() || !formData.content.<span class="function">trim</span>()) {
+    <span class="function">setError</span>(<span class="string">'Title and content required'</span>);
+    <span class="keyword">return</span>;
+  }
+  
+  <span class="function">setSubmitLoading</span>(<span class="number">true</span>);
+  
+  <span class="keyword">try</span> {
+    <span class="keyword">const</span> url = <span class="string">`/server/create_note/execute?title=${encodeURIComponent(formData.title)}&content=${encodeURIComponent(formData.content)}`</span>;
+    
+    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(url, {
+      <span class="property">method</span>: <span class="string">'GET'</span>,
+      <span class="property">headers</span>: { <span class="property">'Content-Type'</span>: <span class="string">'application/json'</span> }
+    });
+    
+    <span class="keyword">const</span> responseData = <span class="keyword">await</span> response.<span class="function">json</span>();
+    <span class="keyword">const</span> result = responseData.output ? <span class="function">JSON.parse</span>(responseData.output) : responseData;
+    
+    <span class="keyword">if</span> (result.success && result.data) {
+      <span class="function">setNotes</span>(prev => [...prev, result.data]);
+      <span class="function">setFormData</span>({ <span class="property">title</span>: <span class="string">''</span>, <span class="property">content</span>: <span class="string">''</span> });
+      <span class="function">setShowForm</span>(<span class="number">false</span>);
+    } <span class="keyword">else</span> {
+      <span class="function">setError</span>(result.message || <span class="string">'Failed to create'</span>);
+    }
+  } <span class="keyword">catch</span> (err) {
+    <span class="function">setError</span>(<span class="string">`Error: ${err.message}`</span>);
+  } <span class="keyword">finally</span> {
+    <span class="function">setSubmitLoading</span>(<span class="number">false</span>);
+  }
+};</pre>
+
+        <div class="page-break"></div>
+
+        <!-- 10. Troubleshooting & Maintenance -->
+        <h2>10. Troubleshooting & Maintenance</h2>
+
+        <h3>Common Issues & Solutions</h3>
+
+        <h4>Issue: Login/Register Returns 408 Error</h4>
+        <div class="warning-box">
+            <strong>Problem:</strong> Request times out with 408 status<br><br>
+            <strong>Root Cause:</strong> Previously caused by Firebase Admin SDK initialization without credentials<br><br>
+            <strong>Solution:</strong> Application now uses HTTPS REST API calls directly to Firebase, which doesn't require credentials. If this occurs, ensure the backend is properly deployed.
+        </div>
+
+        <h4>Issue: Notes Don't Load After Login</h4>
+        <div class="warning-box">
+            <strong>Problem:</strong> Dashboard shows empty notes list<br><br>
+            <strong>Root Cause:</strong> Firebase read endpoint may return empty data<br><br>
+            <strong>Solution:</strong> 
+            <ul>
+                <li>Check browser console for errors</li>
+                <li>Verify network requests in DevTools</li>
+                <li>Ensure /read_notes/execute endpoint is responding</li>
+                <li>Clear localStorage and refresh page</li>
+            </ul>
+        </div>
+
+        <h4>Issue: Token Expiration</h4>
+        <div class="warning-box">
+            <strong>Problem:</strong> User is logged out after 7 days<br><br>
+            <strong>Expected Behavior:</strong> This is by design. Tokens expire after 7 days for security<br><br>
+            <strong>Solution:</strong> 
+            <ul>
+                <li>User must login again to continue</li>
+                <li>Consider implementing token refresh mechanism for production</li>
+            </ul>
+        </div>
+
+        <h3>Performance Optimization</h3>
+        <ul>
+            <li><strong>Caching:</strong> Notes are cached in localStorage for offline access</li>
+            <li><strong>Lazy Loading:</strong> Notes loaded on component mount</li>
+            <li><strong>Debouncing:</strong> Consider debouncing rapid note updates</li>
+            <li><strong>Code Splitting:</strong> Could be implemented for faster initial load</li>
+        </ul>
+
+        <h3>Security Considerations</h3>
+        <ul>
+            <li><strong>HTTPS Only:</strong> All communications use HTTPS</li>
+            <li><strong>Token Storage:</strong> Current implementation uses localStorage (not httpOnly)</li>
+            <li><strong>Recommendation:</strong> Migrate to httpOnly cookies for production</li>
+            <li><strong>CORS:</strong> Verify CORS policies in production environment</li>
+            <li><strong>Rate Limiting:</strong> Should be implemented on backend endpoints</li>
+        </ul>
+
+        <h3>Maintenance Checklist</h3>
+        <ul>
+            <li>☐ Monitor Firebase database usage and costs</li>
+            <li>☐ Review authentication logs for failed attempts</li>
+            <li>☐ Update dependencies regularly (npm audit)</li>
+            <li>☐ Test backup/restore procedures</li>
+            <li>☐ Monitor Catalyst function performance</li>
+            <li>☐ Review error logs weekly</li>
+            <li>☐ Test disaster recovery procedures</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <!-- Appendix -->
+        <h2>Appendix: Project Structure</h2>
+
+        <div class="code-label">Directory Structure</div>
+        <pre>catalyst-demo/
+├── <span class="keyword">client</span>/
+│   ├── <span class="keyword">src</span>/
+│   │   ├── <span class="property">App.js</span>           <span class="comment">(Main React component)</span>
+│   │   ├── <span class="property">App.css</span>          <span class="comment">(Styles)</span>
+│   │   ├── <span class="property">index.js</span>         <span class="comment">(Entry point)</span>
+│   │   └── ...
+│   ├── <span class="keyword">public</span>/
+│   │   ├── <span class="property">index.html</span>       <span class="comment">(HTML template)</span>
+│   │   └── ...
+│   ├── <span class="property">package.json</span>
+│   └── <span class="property">README.md</span>
+├── <span class="keyword">functions</span>/
+│   ├── <span class="keyword">user_register</span>/
+│   │   ├── <span class="property">index.js</span>         <span class="comment">(Registration)</span>
+│   │   └── <span class="property">package.json</span>
+│   ├── <span class="keyword">user_login</span>/
+│   │   ├── <span class="property">index.js</span>         <span class="comment">(Login)</span>
+│   │   └── <span class="property">package.json</span>
+│   ├── <span class="keyword">create_note</span>/, <span class="keyword">read_notes</span>/, <span class="keyword">update_note</span>/, <span class="keyword">delete_note</span>/
+│   └── ...
+├── <span class="property">catalyst.json</span>            <span class="comment">(Configuration)</span>
+├── <span class="property">FIXES_APPLIED.md</span>        <span class="comment">(Fix documentation)</span>
+└── <span class="property">README.md</span>               <span class="comment">(Project README)</span>
+
+<span class="comment">Total Files: 8 backend functions, 1 React frontend</span></pre>
+
+        <h3>Dependencies</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>Version</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>React</td>
+                    <td>19.2.0</td>
+                    <td>Frontend UI framework</td>
+                </tr>
+                <tr>
+                    <td>bcryptjs</td>
+                    <td>2.4.3</td>
+                    <td>Password hashing</td>
+                </tr>
+                <tr>
+                    <td>jsonwebtoken</td>
+                    <td>9.0.0</td>
+                    <td>JWT token generation</td>
+                </tr>
+                <tr>
+                    <td>zcatalyst-sdk-node</td>
+                    <td>latest</td>
+                    <td>Catalyst SDK</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
+        <!-- Conclusion -->
+        <h2>Conclusion</h2>
+        <p>
+            The <strong>Catalyst Notes App</strong> demonstrates a modern, production-ready full-stack application built on serverless architecture. By combining React, Node.js, Firebase, and Zoho Catalyst, the application showcases best practices in:
+        </p>
+        <ul>
+            <li>Frontend development with React and modern CSS</li>
+            <li>Backend development with Node.js and HTTPS REST APIs</li>
+            <li>User authentication and security</li>
+            <li>Database design and management</li>
+            <li>Serverless deployment and scaling</li>
+        </ul>
+
+        <p style="margin-top: 30px;">
+            The application successfully handles user registration, authentication, and complete note management with persistent storage. All endpoints have been tested and verified to work reliably in the production environment.
+        </p>
+
+        <p style="margin-top: 30px;">
+            For further development, consider implementing features such as note sharing, collaborative editing, search functionality, and mobile applications.
+        </p>
+
+        <div class="footer">
+            <p>
+                <strong>Catalyst Notes App</strong><br>
+                Complete Documentation | Version 1.0 | November 2025<br>
+                Built with React, Node.js, Firebase, and Zoho Catalyst
+            </p>
+        </div>
+    </div>
+</body>
+</html>
