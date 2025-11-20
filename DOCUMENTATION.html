@@ -607,48 +607,97 @@
         <h2>4. User Interface Walkthrough</h2>
 
         <h3>Landing / Login Screen</h3>
-        <div class="screenshot-placeholder">
-            <div>
-                <p>Login / Registration Interface</p>
-                <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">
-                    Glassmorphic design with gradient background<br>
-                    Two-panel layout: Login & Register tabs
-                </p>
+        <p>
+            <strong>Screenshot 1: User Registration Form</strong><br>
+            This is the first screen users see when they visit the application. It displays a modern, secure registration interface with glassmorphic design. The form allows new users to create an account by entering their username, email, and password.
+        </p>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #e0e7ff;">
+            <div style="background: linear-gradient(135deg, #1a1f3a 0%, #16213e 100%); padding: 40px 30px; border-radius: 12px; text-align: center; color: white; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+                <h3 style="color: #60a5fa; font-size: 2.2em; margin: 0 0 10px 0; font-weight: 700;">Catalyst Notes</h3>
+                <p style="font-size: 1.1em; margin: 0 0 30px 0; color: #cbd5e1;">Secure Notes with Authentication</p>
+                
+                <div style="text-align: left; background: rgba(15, 23, 42, 0.6); padding: 30px; border-radius: 10px;">
+                    <h4 style="color: #f1f5f9; margin: 0 0 20px 0; font-size: 1.3em;">Create Account</h4>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #e2e8f0; display: block; font-weight: 600; margin-bottom: 8px;">USERNAME:</label>
+                        <input type="text" placeholder="Enter username..." style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #334155; color: #94a3b8; border-radius: 6px; font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: #e2e8f0; display: block; font-weight: 600; margin-bottom: 8px;">EMAIL:</label>
+                        <input type="email" placeholder="Enter email..." style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #334155; color: #94a3b8; border-radius: 6px; font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="color: #e2e8f0; display: block; font-weight: 600; margin-bottom: 8px;">PASSWORD:</label>
+                        <input type="password" placeholder="Enter password..." style="width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #334155; color: #94a3b8; border-radius: 6px; font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <button style="width: 100%; background: #3b82f6; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 700; font-size: 1em; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">Create Account</button>
+                </div>
+                <p style="color: #94a3b8; font-size: 0.95em; margin-top: 20px; margin-bottom: 0;">Already have an account? <span style="color: #3b82f6; text-decoration: underline; cursor: pointer;">Sign In</span></p>
             </div>
         </div>
-        <p>
-            When users first visit the application, they are presented with an authentication screen. This screen features:
-        </p>
-        <ul>
-            <li><strong>Modern Glassmorphism Design:</strong> Frosted glass effect with gradient background</li>
-            <li><strong>Tab Navigation:</strong> Quick toggle between Login and Register modes</li>
-            <li><strong>Login Tab:</strong> Email and password fields with validation</li>
-            <li><strong>Register Tab:</strong> Email, password, and username fields</li>
-            <li><strong>Error Messages:</strong> Real-time validation feedback</li>
-            <li><strong>Loading State:</strong> Visual feedback during authentication</li>
-        </ul>
+        <div class="feature-box">
+            <h4>🔐 Registration Interface Features</h4>
+            <p>
+                ✓ <strong>Glassmorphic Design:</strong> Modern frosted glass effect with dark gradient background<br>
+                ✓ <strong>Three Input Fields:</strong> Username, Email, and Password with clear labels<br>
+                ✓ <strong>Input Validation:</strong> Real-time feedback and placeholder text for guidance<br>
+                ✓ <strong>Primary CTA:</strong> Prominent blue "Create Account" button with shadow effect<br>
+                ✓ <strong>Tab Navigation:</strong> Quick link to switch to "Sign In" mode for existing users<br>
+                ✓ <strong>Security:</strong> Password field masked for privacy<br>
+                ✓ <strong>Responsive Layout:</strong> Centered form with proper spacing and accessibility
+            </p>
+        </div>
 
         <h3>Notes Dashboard</h3>
-        <div class="screenshot-placeholder">
-            <div>
-                <p>Notes Dashboard Interface</p>
-                <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">
-                    Grid layout displaying all user notes<br>
-                    Add button, search, and sort functionality
-                </p>
+        <p>
+            <strong>Screenshot 2: Authenticated Dashboard with Notes</strong><br>
+            After successful login, users see the main dashboard. This shows the complete notes management interface with a user profile section, new note creation button, and existing notes displayed as cards. Each note shows the title, content preview, update timestamp, and action buttons.
+        </p>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #e0e7ff;">
+            <div style="background: linear-gradient(135deg, #1a1f3a 0%, #16213e 100%); padding: 40px 30px; border-radius: 12px; color: white; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 20px; border-bottom: 1px solid #334155;">
+                    <h3 style="color: #60a5fa; font-size: 2em; margin: 0; font-weight: 700;">Catalyst Notes App</h3>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <div style="display: flex; align-items: center; gap: 8px; color: #94a3b8; font-weight: 600;">
+                            <span style="font-size: 1.2em;">👤</span>
+                            <span>testing1</span>
+                        </div>
+                        <button style="background: #ef4444; color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: background 0.3s; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);">🚪 Logout</button>
+                    </div>
+                </div>
+                
+                <p style="color: #cbd5e1; margin: 0 0 30px 0; font-size: 0.95em;">Built with Catalyst Serverless</p>
+                
+                <button style="background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 700; margin-bottom: 30px; cursor: pointer; transition: background 0.3s; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">+ New Note</button>
+                
+                <div style="background: #0f172a; border: 1px solid #334155; border-radius: 10px; padding: 20px; border-top: 3px solid #3b82f6; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);">
+                    <h4 style="color: #f1f5f9; font-size: 1.3em; margin: 0 0 12px 0; font-weight: 700;">new note</h4>
+                    <p style="color: #cbd5e1; margin: 0 0 15px 0; font-size: 0.95em;">testing out creating a new note</p>
+                    <p style="color: #64748b; font-size: 0.85em; margin: 0 0 20px 0;">UPDATED: 11/20/2025</p>
+                    <div style="display: flex; gap: 10px;">
+                        <button style="background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.3s;">✏️ Edit</button>
+                        <button style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.3s;">🗑️ Delete</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <p>
-            After successful authentication, users access the main notes dashboard featuring:
-        </p>
-        <ul>
-            <li><strong>User Profile Area:</strong> Shows logged-in user name and logout button</li>
-            <li><strong>Notes Grid:</strong> Cards displaying all created notes</li>
-            <li><strong>Note Card:</strong> Displays title, content preview, and timestamps</li>
-            <li><strong>Action Buttons:</strong> Edit and Delete buttons on each note</li>
-            <li><strong>Create Button:</strong> Prominent "+ New Note" button</li>
-            <li><strong>Empty State:</strong> Helpful message when no notes exist</li>
-        </ul>
+        <div class="feature-box">
+            <h4>📋 Dashboard Interface Features</h4>
+            <p>
+                ✓ <strong>User Profile Section:</strong> Displays logged-in username with profile icon in top-right<br>
+                ✓ <strong>Logout Button:</strong> Red call-to-action button for signing out securely<br>
+                ✓ <strong>New Note Button:</strong> Prominent blue button with "+ New Note" text for creating notes<br>
+                ✓ <strong>Note Cards:</strong> Dark themed cards displaying individual notes with accent border<br>
+                ✓ <strong>Note Content:</strong> Title, content preview, and last updated timestamp<br>
+                ✓ <strong>Action Buttons:</strong> Blue Edit button and red Delete button for managing notes<br>
+                ✓ <strong>Dark Theme:</strong> Professional dark UI with blue accents for better readability<br>
+                ✓ <strong>Responsive Design:</strong> Properly spaced layout with good visual hierarchy
+            </p>
+        </div>
 
         <h3>Create/Edit Note Modal</h3>
         <div class="screenshot-placeholder">
@@ -958,9 +1007,73 @@
             </tbody>
         </table>
 
-        <div class="page-break"></div>
+        <h3>Firebase Console Screenshot</h3>
+        <p>
+            <strong>Screenshot 3: Firebase Realtime Database</strong><br>
+            This screenshot shows the actual Firebase Realtime Database structure as it appears in the Firebase Console. It demonstrates the hierarchical organization of data with the `/notes` and `/users` collections populated with real application data. The database stores all user account information and notes in JSON format.
+        </p>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #e0e7ff;">
+            <div style="background: #1a1a1a; color: #e0e0e0; padding: 20px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; line-height: 1.6; box-shadow: 0 4px 12px rgba(0,0,0,0.3); overflow-x: auto;">
+                <div style="margin-bottom: 10px;">
+                    <span style="color: #3b82f6; font-weight: 600;">🔗</span>
+                    <span style="color: #60a5fa;">https://catalyst-notes-app-default-rtdb.firebaseio.com</span>
+                </div>
+                
+                <div style="margin-left: 20px;">
+                    <div style="margin-bottom: 8px;">
+                        <span style="color: #94a3b8;">▶</span>
+                        <span style="color: #60a5fa; font-weight: 600;">mi2tpsbdacmvb6l7kj7</span>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <span style="color: #94a3b8;">▶</span>
+                        <span style="color: #60a5fa; font-weight: 600;">mi4rh1ln9cd05tk1o6b</span>
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <span style="color: #94a3b8;">▼</span>
+                        <span style="color: #60a5fa; font-weight: 600;">mi7aisns1qcnh6gajpk</span>
+                        <div style="margin-left: 20px; background: rgba(59, 130, 246, 0.1); padding: 10px; border-radius: 4px; margin-top: 6px;">
+                            <div style="color: #86efac;"><span style="color: #93c5fd;">content</span>: <span style="color: #86efac;">"testing out creating a new note"</span></div>
+                            <div style="color: #86efac;"><span style="color: #93c5fd;">createdAt</span>: <span style="color: #86efac;">"2025-11-20T10:30:28.504Z"</span></div>
+                            <div style="color: #86efac;"><span style="color: #93c5fd;">id</span>: <span style="color: #86efac;">"mi7aisns1qcnh6gajpk"</span></div>
+                            <div style="color: #86efac;"><span style="color: #93c5fd;">title</span>: <span style="color: #86efac;">"new note"</span></div>
+                            <div style="color: #86efac;"><span style="color: #93c5fd;">updatedAt</span>: <span style="color: #86efac;">"2025-11-20T10:30:28.504Z"</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-left: 20px;">
+                    <div style="margin-bottom: 12px;">
+                        <span style="color: #94a3b8;">▼</span>
+                        <span style="color: #60a5fa; font-weight: 600;">users</span>
+                        <div style="margin-left: 20px; margin-top: 8px;">
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2oywadge2bhdk5jkd</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2bfpg14c0a5x56xc</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2p1672zvjmg3fh4yr</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2s50spvgb76oy893n</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2st8ekqqdcm7kewn</span> <span style="color: #78716c; margin-left: 10px;">+ 🗑️</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi2tp8y1xqrzvqgxjx</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi4fh7v31qj9dvugkd7</span></div>
+                            <div style="margin-bottom: 8px;"><span style="color: #94a3b8;">▶</span> <span style="color: #60a5fa;">mi7ai7bvd8rhe3e7l17</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-box">
+            <h4>🗄️ Firebase Database Structure</h4>
+            <p>
+                ✓ <strong>Root URL:</strong> https://catalyst-notes-app-default-rtdb.firebaseio.com<br>
+                ✓ <strong>Notes Collection:</strong> Stores all user notes with unique IDs<br>
+                ✓ <strong>Note Fields:</strong> id, title, content, createdAt, updatedAt timestamps<br>
+                ✓ <strong>Users Collection:</strong> Contains registered user accounts<br>
+                ✓ <strong>User Count:</strong> Multiple user records showing active app usage<br>
+                ✓ <strong>Data Format:</strong> JSON structure with hierarchical organization<br>
+                ✓ <strong>Real-time Sync:</strong> Changes immediately reflect in connected clients<br>
+                ✓ <strong>Scalability:</strong> Firebase handles concurrent reads/writes automatically
+            </p>
+        </div>
 
-        <!-- 8. Deployment & Infrastructure -->
+        <div class="page-break"></div>
         <h2>8. Deployment & Infrastructure</h2>
 
         <h3>Zoho Catalyst Platform</h3>
